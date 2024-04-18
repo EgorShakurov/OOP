@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1714839520 source:c:\users\svyat\desktop\egor_oop\main.cpp
+	<sstream>
+	<iostream>
+	<list>
+	"header.h"
+
+1714839342 c:\users\svyat\desktop\egor_oop\header.h
+	<string>
+	<vector>
+	"iterators.h"
+
+1714834289 c:\users\svyat\desktop\egor_oop\iterators.h
+
