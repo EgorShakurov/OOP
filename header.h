@@ -58,5 +58,100 @@ class West_coast_team : public Standart_team
         void Shuffle() const {wcout << L"Ведение мяча" << endl ; }
 };
 
+class East_coast_team : public Standart_team
+{
+protected:
+    string team_name = "East-coast-team";
+public:
+    East_coast_team() : Standart_team() {current_coast = What_coast::East_coast ;}
+    void PlayMatch() const override {wcout << L"Играет команда Восточного побережья"<< endl ;}
+};
+
+
+
+class FirstContainerIterator : public Iterator<TeamPtr>
+{
+private:
+    const list <TeamPtr> *First_team_cont ;
+    list <TeamPtr>::const_iterator Iterator;
+public:
+    void First(){Iterator = First_team_cont->begin();}
+    void Next() {Iterator++;}
+    bool IsDone() const {return Iterator == First_team_cont->end();}
+    TeamPtr GetCurrent() const {return *Iterator ;}
+    FirstContainerIterator(const list<TeamPtr> *First_Team_cont)
+    {
+        First_team_cont = First_Team_cont;
+        Iterator = First_team_cont->begin();
+    }
+
+};
+
+
+class Container
+{
+public:
+    virtual void AddTeam (TeamPtr NewTeam) = 0 ;
+    virtual int GetCount() const = 0 ;
+    virtual Iterator<TeamPtr> *GetIterator() = 0;
+};
+
+class First_Container : public Container
+{
+private:
+    list<TeamPtr> Team_first_cont;
+
+public:
+    void AddTeam(TeamPtr new_team)
+    {
+        Team_first_cont.push_back(new_team);
+    }
+    int GetCount() const {return Team_first_cont.size() ;}
+
+    Iterator<TeamPtr> *GetIterator()
+    {
+        return new FirstContainerIterator(&Team_first_cont);
+    };
+};
+
+
+class Second_cont_iterator : public Iterator<TeamPtr>
+{
+private:
+	const vector <TeamPtr> *Second_team_cont;
+	vector <TeamPtr>::const_iterator Iterator;
+
+public:
+	void First(){Iterator = Second_team_cont->begin();}
+	void Next() {Iterator++;}
+	bool IsDone() const {return Iterator == Second_team_cont->end();}
+	TeamPtr GetCurrent() const { return *Iterator; }
+    Second_cont_iterator(const vector<TeamPtr> *Second_team_cont)
+    {
+		Second_team_cont = Second_team_cont;
+		Iterator = Second_team_cont->begin();
+	}
+};
+
+
+
+class Second_cont
+{
+private:
+    vector<TeamPtr> Second_team_cont;
+
+public:
+    void AddTeam(TeamPtr New_team) {Second_team_cont.push_back(New_team);}
+    int GetCount() const {return Second_team_cont.size();}
+    TeamPtr GetByIndex(int index) {return Second_team_cont[index];}
+
+   Iterator<TeamPtr> *GetIterator()
+    {
+        return new Second_cont_iterator(&Second_team_cont);
+    };
+};
+
+
+
 
 #endif // BASKETBALL_TEAMS
