@@ -153,5 +153,64 @@ public:
 
 
 
+class TeamCoastDecorator : public IteratorDecorator<TeamPtr>
+{
+private:
+    What_coast TargetType;
+public:
+    TeamCoastDecorator(Iterator<TeamPtr> *Iterator, What_coast targetype) : IteratorDecorator(Iterator)
+    {
+        TargetType = targetype ;
+    }
+
+    void First()
+    {
+        Decorator->First();
+        while (!Decorator->IsDone()&& Decorator->GetCurrent()->what_current_coast()!=TargetType)
+        {
+            Decorator->Next();
+        }
+    }
+
+    void Next()
+    {
+        do
+        {
+            Decorator->Next();
+        }
+        while(!Decorator->IsDone()&&Decorator->GetCurrent()->what_current_coast()!= TargetType);
+    }
+};
+
+
+class TeamStatusDecorator : public IteratorDecorator<TeamPtr>
+{
+private:
+    Team_statuses StatusType;
+public:
+    TeamStatusDecorator(Iterator<TeamPtr> *Iterator, Team_statuses statustype) : IteratorDecorator(Iterator)
+    {
+        StatusType = statustype ;
+    }
+
+    void First()
+    {
+        Decorator->First();
+        while (!Decorator->IsDone()&& Decorator->GetCurrent()->current_status()!=StatusType)
+        {
+            Decorator->Next();
+        }
+    }
+
+    void Next()
+    {
+        do
+        {
+            Decorator->Next();
+        }
+        while(!Decorator->IsDone()&&Decorator->GetCurrent()->current_status()!= StatusType);
+    }
+};
+
 
 #endif // BASKETBALL_TEAMS

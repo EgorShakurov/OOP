@@ -44,6 +44,24 @@ int main()
 {
     setlocale(LC_ALL, "Russian");
 
+    First_Container cont1;
+    Second_cont cont2 ;
 
+    for (int i=0; i < rand()%300+501; i++)
+    {
+        int rand_index = rand()%(2)+1;
+        cont1.AddTeam(Create_New_Team(static_cast<What_coast>(rand_index)));
+    }
+    wcout << L"В списке: " << cont1.GetCount() << L" элемента/элементов" << endl ;
+
+    for (int i=0; i < rand()%300+501; i++)
+    {
+        int rand_index = rand()%(2)+1;
+        cont2.AddTeam(Create_New_Team(static_cast<What_coast>(rand_index)));
+    }
+    wcout << L"В списке: " << cont2.GetCount() << L" элемента/элементов" << endl ;
+
+    Iterator<TeamPtr> *Iterator = new TeamStatusDecorator( new TeamCoastDecorator(cont1.GetIterator(), What_coast::East_coast), Team_statuses::Active_team ) ;
+    Task1_not_active(Iterator) ;
     return 0;
 }
