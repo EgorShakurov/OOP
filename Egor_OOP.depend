@@ -12,13 +12,13 @@
 
 1714834289 c:\users\svyat\desktop\egor_oop\iterators.h
 
-1714069741 source:c:\users\egor\desktop\oop\main.cpp
+1714405382 source:c:\users\egor\desktop\oop\main.cpp
 	<sstream>
 	<iostream>
 	<list>
 	"header.h"
 
-1714069746 c:\users\egor\desktop\oop\header.h
+1714405406 c:\users\egor\desktop\oop\header.h
 	<string>
 	<vector>
 	"iterators.h"

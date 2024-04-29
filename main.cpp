@@ -61,7 +61,7 @@ int main()
     }
     wcout << L"В списке: " << cont2.GetCount() << L" элемента/элементов" << endl ;
 
-    Iterator<TeamPtr> *Iterator = new TeamStatusDecorator( new TeamCoastDecorator(cont1.GetIterator(), What_coast::East_coast), Team_statuses::Active_team ) ;
+    Iterator<TeamPtr> *Iterator = new IsPopularDecorator( new TeamStatusDecorator( new TeamCoastDecorator(cont1.GetIterator(), What_coast::East_coast), Team_statuses::Active_team ), true ) ;
     Task1_not_active(Iterator) ;
     return 0;
 }

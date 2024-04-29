@@ -25,6 +25,7 @@ class Standart_team
     protected:
     string team_name = "No_team_name";
     int members_count = 4;
+    int popularity = rand()%(10) ;
     Team_statuses team_status = static_cast<Team_statuses>(rand()%(2)+1) ;
     What_coast current_coast = static_cast<What_coast>(rand()%(2)+1) ;
     public:
@@ -40,6 +41,12 @@ class Standart_team
             team_status = new_status ;
         }
         Team_statuses current_status() const {return team_status ;}
+
+        bool IsPopularry() const
+        {
+            if (popularity > 7) {return true;}
+            else {return false ;}
+        }
 };
 
 
@@ -212,5 +219,35 @@ public:
     }
 };
 
+
+
+class IsPopularDecorator : public IteratorDecorator<TeamPtr>
+{
+private:
+    bool IsPopular;
+public:
+    IsPopularDecorator(Iterator<TeamPtr> *Iterator, bool isPopular) : IteratorDecorator(Iterator)
+    {
+        IsPopular = isPopular;
+    }
+
+    void First()
+    {
+        Decorator->First();
+        while (!Decorator->IsDone()&& Decorator->GetCurrent()->IsPopularry()!=IsPopular)
+        {
+            Decorator->Next();
+        }
+    }
+
+    void Next()
+    {
+        do
+        {
+            Decorator->Next();
+        }
+        while(!Decorator->IsDone()&&Decorator->GetCurrent()->IsPopularry()!= IsPopular);
+    }
+};
 
 #endif // BASKETBALL_TEAMS
